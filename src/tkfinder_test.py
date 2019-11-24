@@ -13,13 +13,13 @@ class MyTestCase(unittest.TestCase):
 
     def test_is_command_in_alias(self):
         item = {'Alias': ["hs", "hellsweep", "Giant swing", "u/f3"]}
-        result = tkfinder.is_command_in_alias("hellsweep", item)
+        result = tkfinder.get_move_from_alias("hellsweep", item)
         self.assertTrue(result)
 
-        result = tkfinder.is_command_in_alias("he", item)
+        result = tkfinder.get_move_from_alias("he", item)
         self.assertFalse(result)
 
-        result = tkfinder.is_command_in_alias("uf3", item)
+        result = tkfinder.get_move_from_alias("uf3", item)
         self.assertTrue(result)
 
     def test_get_cha_name(self):

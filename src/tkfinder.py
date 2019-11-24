@@ -52,7 +52,7 @@ def get_similar_moves(move: str, chara_name: str) -> list:
     return list(moves)
 
 
-def get_character_data(chara_name: str) -> dict:
+def get_character_data(chara_name: str):
     """Gets character details from character_misc.json, if character exists
     returns character details as dict if exists, else None"""
 
@@ -65,7 +65,7 @@ def get_character_data(chara_name: str) -> dict:
         return None
 
 
-def get_move(character: dict, move_command: str) -> dict:
+def get_move(character: dict, move_command: str):
     """Gets move from local_json, if exists
     returns move if exists, else None"""
 
@@ -77,7 +77,7 @@ def get_move(character: dict, move_command: str) -> dict:
         move = list(filter(lambda x: move_simplifier(move_command.lower())
                                      in move_simplifier(x['Command'].lower()), move_json))
         if not move:
-            move = list(filter(lambda x: (is_command_in_alias(move_command, x)), move_json))
+            move = list(filter(lambda x: (get_move_from_alias(move_command.lower(), x)), move_json))
 
     if move:
         return move[0]
@@ -102,15 +102,15 @@ def get_by_move_type(character: dict, move_type: str) -> list:
         return []
 
 
-def is_command_in_alias(command: str, item: dict) -> bool:
-    if 'Alias' in item:
-        command = command.lower().strip()
+def get_move_from_alias(command: str, item: dict):
+    if 'Alias' not in item:
+        return None
 
-        aliases = item['Alias']
-        for alias in aliases:
-            if move_simplifier(command) == move_simplifier(alias):
-                return True
-    return False
+    alias_list = item['Alias']
+
+    for alias in alias_list:
+        if move_simplifier(command) == move_simplifier(alias):
+            return [alias]
 
 
 def move_simplifier(move_input) -> str:
