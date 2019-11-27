@@ -9,6 +9,7 @@ kazuya = {
     "portrait": "https://i.imgur.com/kMvhDfU.jpg"
 }
 
+
 class MyTestCase(unittest.TestCase):
     def test_get_commands(self):
         result = tkfinder.get_commands_from("hwoarang")

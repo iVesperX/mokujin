@@ -12,9 +12,18 @@ def move_embed(character, move):
     embed.add_field(name='Property', value=move['Hit level'])
     embed.add_field(name='Damage', value=move['Damage'])
     embed.add_field(name='Startup', value='i' + move['Start up frame'])
-    embed.add_field(name='Block', value=move['Block frame'])
-    embed.add_field(name='Hit', value=move['Hit frame'])
-    embed.add_field(name='Counter Hit', value=move['Counter hit frame'])
+
+    if 'Throw' in move['Notes']:
+        # throw
+        embed.add_field(name='Result Position', value=move['Success frame'])
+        embed.add_field(name='Break Type', value=move['Break input'])
+        embed.add_field(name='Break Window', value=move['Break frame'])
+    else:
+        # attack
+        embed.add_field(name='Block', value=move['Block frame'])
+        embed.add_field(name='Hit', value=move['Hit frame'])
+        embed.add_field(name='Counter Hit', value=move['Counter hit frame'])
+
     embed.add_field(name='Notes', value=(move['Notes'] if move['Notes'] else "-"))
     if move['Gif']:
         embed.add_field(name='Gif', value=move['Gif'], inline=False)
@@ -39,6 +48,7 @@ def error_embed(err):
                           colour=0xFF4500,
                           description=err)
     return embed
+
 
 def success_embed(message):
     embed = discord.Embed(title='Success',
