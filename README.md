@@ -1,4 +1,4 @@
-# Mokujin
+# Mokujin 2.0
 
 Mokujin (v1.0.1) is a discord bot that fetches Tekken 7 framedata.  
 It uses [discord.py](https://github.com/Rapptz/discord.py) v1.2.5+ and is updated to use Python 3.6+
